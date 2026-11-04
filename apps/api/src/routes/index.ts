@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-const router = Router()
+const router: Router = Router()
 
 // Feature routes will be mounted here
 // router.use('/auth', require('./auth'))

@@ -4,6 +4,7 @@ import helmet from 'helmet'
 import dotenv from 'dotenv'
 import { pino } from 'pino'
 import { pinoHttp } from 'pino-http'
+import { randomUUID } from 'node:crypto'
 
 dotenv.config()
 
@@ -15,7 +16,7 @@ const logger = pino({
 
 app.use(
   helmet({
-    crossOriginResourcePolicy: { policy: false },
+    crossOriginResourcePolicy: false,
   })
 )
 app.use(
@@ -29,7 +30,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use(
   pinoHttp({
     logger,
-    genReqId: (req) => req.headers['x-request-id'] || undefined,
+    genReqId: (req) => {
+      const requestId = req.headers['x-request-id']
+      if (Array.isArray(requestId)) return requestId[0] || randomUUID()
+      return requestId || randomUUID()
+    },
   })
 )
 
