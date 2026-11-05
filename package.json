@@ -13,6 +13,7 @@
     "type-check": "pnpm -r type-check"
   },
   "devDependencies": {
+    "@typescript-eslint/parser": "^8.72.1",
     "eslint": "^8.57.0",
     "typescript": "^5.4.0",
     "vitest": "^1.5.0"
